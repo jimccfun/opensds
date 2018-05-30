@@ -1,7 +1,7 @@
 <div *ngIf="showReplication">
     <div class="table-toolbar">
         <div class="left">
-            <button pButton type="button" label="{{I18N.keyID['sds_block_volume_replication_disable']}}"  class="ui-button-secondary"></button>
+            <button pButton type="button" label="{{I18N.keyID['sds_block_volume_replication_disable']}}" (click)="disableReplication()" class="ui-button-secondary"></button>
             <button pButton type="button" label="{{I18N.keyID['sds_block_volume_replication_failover']}}"  ></button>
             <button pButton type="button" label="{{I18N.keyID['sds_block_volume_delete']}}"  ></button>
         </div>
@@ -64,3 +64,4 @@
 <div *ngIf="!showReplication">
     no data available
 </div>
+<p-confirmDialog></p-confirmDialog>

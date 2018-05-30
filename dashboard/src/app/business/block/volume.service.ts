@@ -116,6 +116,10 @@ export class ReplicationService {
         }
         return this.http.get(url);
     }
+    disableReplication(param){
+        let url = this.replicationUrl+"/"+param+"/disable";
+        return this.http.post(url,param);
+    }
 }
 @Injectable()
 export class VolumeGroupService {
