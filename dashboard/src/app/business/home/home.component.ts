@@ -241,7 +241,9 @@ export class HomeComponent implements OnInit {
     getAllReplication(projectId){
         let url = 'v1beta/'+projectId+'/block/replications';
         this.http.get(url).subscribe((res)=>{
-            this.items[6].countNum = this.items[6].countNum + res.json().length;
+            if(res.json()){
+                this.items[6].countNum = this.items[6].countNum + res.json().length;
+            }
         });
     }
     getAllPools(projectId){
@@ -277,9 +279,7 @@ export class HomeComponent implements OnInit {
     getAllDocks(projectId){
         let url = 'v1beta/'+projectId+'/docks';
         this.http.get(url).subscribe((res)=>{
-            if(res){
-                this.items[2].countNum = this.items[2].countNum + res.json().length;
-            }
+            this.items[2].countNum = this.items[2].countNum + res.json().length;
         });
     }
     getCountData(){

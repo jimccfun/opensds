@@ -83,16 +83,20 @@ export class ReplicationListComponent implements OnInit {
             isWarning: warming,
             accept: ()=>{
                 try {
-                    if(func === "disable"){
-                        this.replicationService.disableReplication(this.replication.id).subscribe((res)=>{})
-                    }else if(func === "delete"){
-                        this.replicationService.deleteReplication(this.replication.id).subscribe((res)=>{
-                            this.getReplicationByVolumeId(this.volumeId);
-                        })
-                    }else if(func === "failover"){
-                        this.replicationService.failoverReplication(this.replication.id).subscribe((res)=>{
-                            this.getReplicationByVolumeId(this.volumeId);
-                        })
+                    switch(func){
+                        case "disable":
+                            this.replicationService.disableReplication(this.replication.id).subscribe((res)=>{});
+                            break;
+                        case "delete":
+                            this.replicationService.deleteReplication(this.replication.id).subscribe((res)=>{
+                                this.getReplicationByVolumeId(this.volumeId);
+                            });
+                            break;
+                        case "failover":
+                            this.replicationService.failoverReplication(this.replication.id).subscribe((res)=>{
+                                this.getReplicationByVolumeId(this.volumeId);
+                            });
+                            break;
                     }
                 }
                 catch (e) {
