@@ -62,10 +62,18 @@ export class ReplicationListComponent implements OnInit {
         this.confirmDialog([msg,header,acceptLabel,warming,"disable"])
     }
     failoverReplication(){
-
+        let msg = "<div>Are you sure you want to failover the Replication?</div><h3>[ "+ this.replication.name +" ]</h3>";
+        let header ="Failover Replication";
+        let acceptLabel = "Failover";
+        let warming = true;
+        this.confirmDialog([msg,header,acceptLabel,warming,"failover"])
     }
     deleteReplication(){
-
+        let msg = "<div>Are you sure you want to delete the Replication?</div><h3>[ "+ this.replication.name +" ]</h3>";
+        let header ="Delete Replication";
+        let acceptLabel = "Delete";
+        let warming = true;
+        this.confirmDialog([msg,header,acceptLabel,warming,"delete"])
     }
     confirmDialog([msg,header,acceptLabel,warming=true,func]){
         this.confirmationService.confirm({
@@ -78,12 +86,17 @@ export class ReplicationListComponent implements OnInit {
                     if(func === "disable"){
                         this.replicationService.disableReplication(this.replication.id).subscribe((res)=>{})
                     }else if(func === "delete"){
-
+                        this.replicationService.deleteReplication(this.replication.id).subscribe((res)=>{
+                            this.getReplicationByVolumeId(this.volumeId);
+                        })
                     }else if(func === "failover"){
-
+                        this.replicationService.failoverReplication(this.replication.id).subscribe((res)=>{
+                            this.getReplicationByVolumeId(this.volumeId);
+                        })
                     }
                 }
                 catch (e) {
+                    console.log(e);
                 }
                 finally {
                     this.getReplicationByVolumeId(this.volumeId);
@@ -92,38 +105,4 @@ export class ReplicationListComponent implements OnInit {
             reject:()=>{}
         })
     }
-/*
-*
-* deleteUsers(users){
-        let arr=[], msg;
-        if(_.isArray(users)){
-            users.forEach((item,index)=> {
-                arr.push(item.userid);
-            })
-            msg = "<div>Are you sure you want to delete the selected users?</div><h3>[ "+ users.length +" Users ]</h3>";
-        }else{
-            arr.push(users.userid);
-            msg = "<div>Are you sure you want to delete the user?</div><h3>[ "+ users.username +" ]</h3>";
-        }
-
-        this.confirmationService.confirm({
-            message: msg,
-            header: "Delete User",
-            acceptLabel: "Delete",
-            isWarning: true,
-            accept: ()=>{
-                arr.forEach((item,index)=> {
-                    let request: any = {};
-                    this.http.delete("/v3/users/"+ item, request).subscribe((res) => {
-                        if(index == arr.length-1){
-                            this.listUsers();
-                        }
-                    });
-                })
-
-            },
-            reject:()=>{}
-        })
-
-    }*/
 }

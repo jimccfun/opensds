@@ -2,8 +2,8 @@
     <div class="table-toolbar">
         <div class="left">
             <button pButton type="button" label="{{I18N.keyID['sds_block_volume_replication_disable']}}" (click)="disableReplication()" class="ui-button-secondary"></button>
-            <button pButton type="button" label="{{I18N.keyID['sds_block_volume_replication_failover']}}"  ></button>
-            <button pButton type="button" label="{{I18N.keyID['sds_block_volume_delete']}}"  ></button>
+            <button pButton type="button" label="{{I18N.keyID['sds_block_volume_replication_failover']}}" (click)="failoverReplication()"  ></button>
+            <button pButton type="button" label="{{I18N.keyID['sds_block_volume_delete']}}" (click)="deleteReplication()" ></button>
         </div>
     </div>
     <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin-top: 50px">

@@ -120,6 +120,14 @@ export class ReplicationService {
         let url = this.replicationUrl+"/"+param+"/disable";
         return this.http.post(url,param);
     }
+    failoverReplication(param){
+        let url = this.replicationUrl+"/"+param+"/failover";
+        return this.http.post(url,param);
+    }
+    deleteReplication(param){
+        let url = this.replicationUrl+"/"+param;
+        return this.http.delete(url);
+    }
 }
 @Injectable()
 export class VolumeGroupService {
