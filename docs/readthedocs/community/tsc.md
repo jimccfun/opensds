@@ -5,11 +5,11 @@ OpenSDS Technical Steering Committee
 The primary decision makeing forum for OpenSDS projects and servers to set the overall technical direction and strategy for OpenSDS.
 
 ## Members
-* Steven Tan (Huawei)
-* Rakesh Jain (IBM)
-* Allen Samuels (Western Digital)
 * Anjaneya Chagam (Intel)
-* Jay Bryant (Lenovo)
+* Rakesh Jain (IBM)
+* Allen Samuels (WD/SanDisk)
+* Steven Tan (Huawei)
+* Matsumoto Shuuhei (Hitachi)
 
 
 ## Weekly Meetings

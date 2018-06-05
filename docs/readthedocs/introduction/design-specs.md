@@ -3,11 +3,11 @@ OpenSDS design proposals repo.
 
 ## OpenSDS Architecture
 
-[OpenSDS Architecture](https://docs.google.com/presentation/d/1-XZJ8lUSGzSXNs23P2MBSUjuyaIumWhSU85hKUbqauM/edit?usp=sharing)
+[OpenSDS Architecture](https://docs.google.com/presentation/d/1-XZJ8lUSGzSXNs23P2MBSUjuyaIumWhSU85hKUbqauM/edit#)
 
 ## OpenSDS Roadmap
 
-[OpenSDS Roadmap](https://docs.google.com/presentation/d/1wDhKmdBFOnWraDL98lSWvVoqbuw-xOTA549O04_de_U/edit?usp=sharing)
+[OpenSDS Roadmap](https://docs.google.com/presentation/d/1wDhKmdBFOnWraDL98lSWvVoqbuw-xOTA549O04_de_U/edit#)
 
 ## Design Proposal Links
 
@@ -31,8 +31,6 @@ Design proposals are drafted here:
 
 ## Contact
 
-## Contact
-
-* Mailing list: [opensds-tech-discuss](https://lists.opensds.io/mailman/listinfo/opensds-tech-discuss)
+* Mailing list: [opensds-dev](https://groups.google.com/forum/?hl=en#!forum/opensds-dev)
 * slack: #[opensds](https://opensds.slack.com)
 * Ideas/Bugs: [issues](https://github.com/opensds/design-specs/issues)

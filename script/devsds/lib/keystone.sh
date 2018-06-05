@@ -14,11 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# 'stack' user is just for install keystone through devstack
 
 _XTRACE_KEYSTONE=$(set +o | grep xtrace)
 set +o xtrace
 
+# 'stack' user is just for install keystone through devstack
 osds::keystone::create_user(){
     if id ${STACK_USER_NAME} &> /dev/null; then
         return
@@ -96,6 +96,14 @@ osds::keystone::create_user_and_endpoint(){
     openstack endpoint create --region RegionOne opensds$OPENSDS_VERSION admin http://$HOST_IP:50040/$OPENSDS_VERSION/%\(tenant_id\)s
 }
 
+osds::keystone::delete_redundancy_data() {
+    . $DEV_STACK_DIR/openrc admin admin
+    openstack project delete demo
+    openstack project delete alt_demo
+    openstack project delete invisible_to_admin
+    openstack user delete demo
+    openstack user delete alt_demo
+}
 
 osds::keystone::download_code(){
     if [ ! -d ${DEV_STACK_DIR} ];then
@@ -110,7 +118,7 @@ osds::keystone::install(){
     osds::keystone::download_code
     osds::keystone::opensds_conf
 
-    # If keystone is on there no need continue next steps.
+    # If keystone is ready to start, there is no need continue next step.
     if osds::util::wait_for_url http://$HOST_IP/identity "keystone" 0.25 4; then
         return
     fi
@@ -118,6 +126,7 @@ osds::keystone::install(){
     cd ${DEV_STACK_DIR}
     su $STACK_USER_NAME -c ${DEV_STACK_DIR}/stack.sh
     osds::keystone::create_user_and_endpoint
+    osds::keystone::delete_redundancy_data
 }
 
 osds::keystone::cleanup() {
