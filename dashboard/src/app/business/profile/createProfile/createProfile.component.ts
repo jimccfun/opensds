@@ -94,19 +94,7 @@ export class CreateProfileComponent implements OnInit {
         {
             label: 'Mirror',
             value: 'mirror'
-        }/*,
-        {
-            label: 'Snapshot',
-            value: 'snapshot'
-        },
-        {
-            label: 'Clone',
-            value: 'clone'
-        },
-        {
-            label: 'Tokenized Clone',
-            value: 'tokenized'
-        }*/
+        }
     ];
 
     replicationRGOOptions = [
