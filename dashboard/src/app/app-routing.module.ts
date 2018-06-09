@@ -15,6 +15,7 @@ const routes: Routes = [
     {path: 'resource', loadChildren: './business/resource/resource.module#ResourceModule'},
     {path: 'identity', loadChildren: './business/identity/identity.module#IdentityModule'},
     {path: 'volumeGroupDetails/:groupId', loadChildren: './business/block/volume-group-detail/volume-group-detail.module#VolumeGroupDetailModule'},
+    {path: 'block/:fromRoute', loadChildren: './business/block/block.module#BlockModule'},
 ];
 
 @NgModule({

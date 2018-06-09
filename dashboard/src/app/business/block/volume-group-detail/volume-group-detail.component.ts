@@ -18,6 +18,9 @@ export class VolumeGroupDetailComponent implements OnInit {
   label:any;
   profileJson = {};
   volumes=[];
+  allOptionalVolumes = [];
+  selectedVolumes = [];
+  showAddVolumes:boolean=false;
   constructor(
     private VolumeService: VolumeService,
     private ActivatedRoute: ActivatedRoute,
@@ -33,8 +36,8 @@ export class VolumeGroupDetailComponent implements OnInit {
     );
     this.getProfiles();
     this.items = [
-      { label: this.I18N.keyID["sds_block_volume_title"], url: '/block' },
-      { label: this.I18N.keyID["sds_block_volume_detail"], url: '/volumeDetail' }
+      { label: this.I18N.keyID["sds_block_volume_group_router"], url: '/block' },
+      { label: this.I18N.keyID["sds_block_volume_group_detail"], url: '/volumeGroupDetails' }
     ];
     this.label = {
       Name: this.I18N.keyID["sds_block_volume_name"],
@@ -59,6 +62,7 @@ export class VolumeGroupDetailComponent implements OnInit {
           volumeGroup.profileName = profileName;
       }
       this.volumeGroup = volumeGroup;
+      this.getAllOptionalVolumes();
     });
   }
   getProfiles() {
@@ -71,11 +75,27 @@ export class VolumeGroupDetailComponent implements OnInit {
         this.getVolumesByGroupId(this.volumeGroupId);
     });
   }
+  getAllOptionalVolumes(){
+      this.VolumeService.getVolumes().subscribe((res)=>{
+        let allVolumes = res.json();
+        this.allOptionalVolumes = [];
+        if(allVolumes){
+          allVolumes.forEach((item)=>{
+            if(item.pooId == this.volumeGroup.pooId && !item.groupId){
+              item.size = Utils.getDisplayGBCapacity(item.size);
+              item.profileName = this.profileJson[item.profileId];
+              this.allOptionalVolumes.push(item);
+            }
+          });
+        }
+      });
+  }
   getVolumesByGroupId(volumeGroupId){
     this.VolumeService.getVolumeByGroupId(volumeGroupId).subscribe((res)=>{
       let volumes = res.json();
       if(volumes && volumes.length != 0){
         volumes.forEach((item)=>{
+          item.size = Utils.getDisplayGBCapacity(item.size);
           item.profileName = this.profileJson[item.profileId];
         });  
       }
@@ -83,13 +103,17 @@ export class VolumeGroupDetailComponent implements OnInit {
     });
   };
   addVolumesToGroup(){
+    let volumes = [];
+    this.selectedVolumes.forEach((item)=>{
+      volumes.push(item.id);
+    });
     let param = {
-      "addVolumes": [
-          "c5d89eb3-9d28-43db-bd9e-8e1ee6ea657e"
-      ],
+      "addVolumes": volumes,
     }
+    this.selectedVolumes = [];
     this.VolumeGroupService.addOrRemovevolumes(this.volumeGroupId,param).subscribe((res)=>{
-        
+      this.showAddVolumes = false;
+      this.getProfiles();
     });
   }
   removeVolumeFromGroup(volume){
