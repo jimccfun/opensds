@@ -137,6 +137,11 @@ export class ReplicationService {
         let url = this.replicationUrl+"/"+param;
         return this.http.delete(url);
     }
+    //get all replications
+    getAllReplicationsDetail(){
+      let url = this.replicationUrl+"/detail";
+      return this.http.get(url);
+  }
 }
 @Injectable()
 export class VolumeGroupService {

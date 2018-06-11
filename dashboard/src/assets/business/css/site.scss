@@ -1529,4 +1529,9 @@ a {
 .create-profile-snap-col-8{
     width:66.66666%;
 }
+.a-rep-disabled{
+    pointer-events:none;
+    cursor:default;
+    opacity:0.5
+}
 /* custom breadcrumb end */

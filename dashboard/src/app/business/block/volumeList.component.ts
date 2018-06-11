@@ -144,15 +144,23 @@ export class VolumeListComponent implements OnInit {
         this.selectedVolumes = [];
         this.VolumeService.getVolumes().subscribe((res) => {
             this.volumes = res.json();
-            this.volumes.map((item)=>
-                {
-                    item['profileName'] = this.profiles.filter((profile,index,arr)=>{
-                        return profile.id == item.profileId;
-                    })[0].name;
-
-                    item.size = Utils.getDisplayGBCapacity(item.size);
-                }
-            )
+            this.ReplicationService.getAllReplicationsDetail().subscribe((resRep)=>{
+                let replications = resRep.json();
+                this.volumes.map((item)=>
+                    {
+                        item['profileName'] = this.profiles.filter((profile,index,arr)=>{
+                            return profile.id == item.profileId;
+                        })[0].name;
+                        item['isDisableRep'] = false;
+                        replications.map((rep)=>{
+                            if(rep.primaryVolumeId == item.id || rep.secondaryVolumeId == item.id){
+                                item['isDisableRep'] = true;
+                            }
+                        });
+                        item.size = Utils.getDisplayGBCapacity(item.size);
+                    }
+                );
+            });
         });
     }
 
