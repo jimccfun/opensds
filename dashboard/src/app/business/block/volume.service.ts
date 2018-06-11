@@ -125,11 +125,15 @@ export class ReplicationService {
         let url = this.replicationUrl+"/"+param+"/disable";
         return this.http.post(url,param);
     }
+    enableReplication(param){
+      let url = this.replicationUrl+"/"+param+"/enable";
+      return this.http.post(url,param);
+  }
     failoverReplication(id){
         let url = this.replicationUrl+"/"+id+"/failover";
         let param = {
             "allowAttachedVolume": true,
-            "secondaryBackendId": id
+            "secondaryBackendId": "default"
         }
         return this.http.post(url,param);
     }

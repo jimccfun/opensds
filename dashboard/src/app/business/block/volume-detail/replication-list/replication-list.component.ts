@@ -23,6 +23,38 @@ export class ReplicationListComponent implements OnInit {
         id:""
     };
     showReplication:boolean=false;
+    //[0]:status:enble;[1]:status:disabled;[2]:status:failover;[3]:status:other
+    swichMode = [
+        {
+            disableBtnDisplay:true,
+            disableBtnDisabled:false,
+            enableBtnDisplay:false,
+            enableBtnDisabled:true,
+            failoverBtnDisabled:false,
+        },
+        {
+            disableBtnDisplay:false,
+            disableBtnDisabled:true,
+            enableBtnDisplay:true,
+            enableBtnDisabled:false,
+            failoverBtnDisabled:false,
+        },
+        {
+            disableBtnDisplay:false,
+            disableBtnDisabled:true,
+            enableBtnDisplay:true,
+            enableBtnDisabled:false,
+            failoverBtnDisabled:true,
+        },
+        {
+            disableBtnDisplay:true,
+            disableBtnDisabled:true,
+            enableBtnDisplay:false,
+            enableBtnDisabled:true,
+            failoverBtnDisabled:true,
+        }
+    ];
+    operationStatus:any;
     constructor(
        public I18N:I18NService,
        private VolumeService:VolumeService,
@@ -31,8 +63,53 @@ export class ReplicationListComponent implements OnInit {
               ) {  }
 
     ngOnInit() {
-      this.getVolumeById(this.volumeId);
-      this.getReplicationByVolumeId(this.volumeId)
+        this.operationStatus = this.swichMode[3];
+        this.getAllReplicationsDetail();
+    }
+    getAllReplicationsDetail(){
+        this.replicationService.getAllReplicationsDetail().subscribe((resRep)=>{
+            let replications = resRep.json();
+            replications.forEach(element => {
+                if(element.primaryVolumeId == this.volumeId){
+                    this.getVolumeById(this.volumeId);
+                    this.replication = element;
+                    //ReplicationStatus
+                    switch(this.replication['ReplicationStatus']){
+                        case "enabled":
+                            this.operationStatus = this.swichMode[0];
+                            break;
+                        case "disabled":
+                            this.operationStatus = this.swichMode[1];
+                            break;
+                        case "failed_over":
+                            this.operationStatus = this.swichMode[2];
+                            break;
+                        default:
+                            this.operationStatus = this.swichMode[3];
+                    }
+                    this.showReplication = true;
+                }
+                if(element.secondaryVolumeId == this.volumeId){
+                    this.replication = element;
+                    //ReplicationStatus
+                    switch(this.replication['ReplicationStatus']){
+                        case "enabled":
+                            this.operationStatus = this.swichMode[0];
+                            break;
+                        case "disabled":
+                            this.operationStatus = this.swichMode[1];
+                            break;
+                        case "failed_over":
+                            this.operationStatus = this.swichMode[2];
+                            break;
+                        default:
+                            this.operationStatus = this.swichMode[3];
+                    }
+                    this.getVolumeById(element.primaryVolumeId);
+                    this.showReplication = true;
+                }
+            });
+        });
     }
     getVolumeById(volumeId){
         this.VolumeService.getVolumeById(volumeId).subscribe((res) => {
@@ -61,6 +138,13 @@ export class ReplicationListComponent implements OnInit {
         let warming = false;
         this.confirmDialog([msg,header,acceptLabel,warming,"disable"])
     }
+    enableReplication(){
+        let msg = "<div>Are you sure you want to enable the Replication?</div><h3>[ "+ this.replication.name +" ]</h3>";
+        let header ="Enable Replication";
+        let acceptLabel = "Enable";
+        let warming = false;
+        this.confirmDialog([msg,header,acceptLabel,warming,"enable"])
+    }
     failoverReplication(){
         let msg = "<div>Are you sure you want to failover the Replication?</div><h3>[ "+ this.replication.name +" ]</h3>";
         let header ="Failover Replication";
@@ -86,17 +170,22 @@ export class ReplicationListComponent implements OnInit {
                     switch(func){
                         case "disable":
                             this.replicationService.disableReplication(this.replication.id).subscribe((res)=>{
-                                this.getReplicationByVolumeId(this.volumeId);
+                                this.getAllReplicationsDetail();
                             });
                             break;
                         case "delete":
                             this.replicationService.deleteReplication(this.replication.id).subscribe((res)=>{
-                                this.getReplicationByVolumeId(this.volumeId);
+                                this.getAllReplicationsDetail();
                             });
                             break;
                         case "failover":
                             this.replicationService.failoverReplication(this.replication.id).subscribe((res)=>{
-                                this.getReplicationByVolumeId(this.volumeId);
+                                this.getAllReplicationsDetail();
+                            });
+                            break;
+                        case "enable":
+                            this.replicationService.enableReplication(this.replication.id).subscribe((res)=>{
+                                this.getAllReplicationsDetail();
                             });
                             break;
                     }
@@ -105,7 +194,7 @@ export class ReplicationListComponent implements OnInit {
                     console.log(e);
                 }
                 finally {
-                    this.getReplicationByVolumeId(this.volumeId);
+                    this.getAllReplicationsDetail();
                 }
             },
             reject:()=>{}
