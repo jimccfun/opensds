@@ -46,7 +46,7 @@ export class VolumeListComponent implements OnInit {
             value: null
         }
     ];
-    azOption=[{label:"default",value:"default"}];
+    azOption=[{label:"Secondary",value:"secondary"}];
     selectedVolumes = [];
     volumes = [];
     menuItems: MenuItem[];

@@ -85,7 +85,9 @@ export class ReplicationListComponent implements OnInit {
                 try {
                     switch(func){
                         case "disable":
-                            this.replicationService.disableReplication(this.replication.id).subscribe((res)=>{});
+                            this.replicationService.disableReplication(this.replication.id).subscribe((res)=>{
+                                this.getReplicationByVolumeId(this.volumeId);
+                            });
                             break;
                         case "delete":
                             this.replicationService.deleteReplication(this.replication.id).subscribe((res)=>{
