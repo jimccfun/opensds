@@ -1540,6 +1540,8 @@ a {
     font-size: 0; 
     text-align: right; 
     background-color:#ccc; 
+    margin: auto;
+    margin-top: 10px;
 }
 .line-arrow-right::before{ 
     content: ''; 

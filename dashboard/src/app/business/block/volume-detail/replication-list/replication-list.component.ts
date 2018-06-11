@@ -22,6 +22,7 @@ export class ReplicationListComponent implements OnInit {
         replicationPeriod:30,
         id:""
     };
+    arrowEnable = true;
     showReplication:boolean=false;
     //[0]:status:enble;[1]:status:disabled;[2]:status:failover;[3]:status:other
     swichMode = [
@@ -74,25 +75,29 @@ export class ReplicationListComponent implements OnInit {
                     this.getVolumeById(this.volumeId);
                     this.replication = element;
                     //ReplicationStatus
-                    switch(this.replication['ReplicationStatus']){
+                    switch(this.replication['replicationStatus']){
                         case "enabled":
                             this.operationStatus = this.swichMode[0];
+                            this.arrowEnable = true;
                             break;
                         case "disabled":
                             this.operationStatus = this.swichMode[1];
+                            this.arrowEnable = false;
                             break;
                         case "failed_over":
                             this.operationStatus = this.swichMode[2];
+                            this.arrowEnable = false;
                             break;
                         default:
                             this.operationStatus = this.swichMode[3];
+                            this.arrowEnable = false;
                     }
                     this.showReplication = true;
                 }
                 if(element.secondaryVolumeId == this.volumeId){
                     this.replication = element;
                     //ReplicationStatus
-                    switch(this.replication['ReplicationStatus']){
+                    switch(this.replication['replicationStatus']){
                         case "enabled":
                             this.operationStatus = this.swichMode[0];
                             break;
