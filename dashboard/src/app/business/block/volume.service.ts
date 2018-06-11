@@ -38,6 +38,11 @@ export class VolumeService {
     let url = this.url + '/' + id;
     return this.http.get(url);
   }
+  //Search volume by groupId
+  getVolumeByGroupId(id): Observable<any> {
+    let url = this.url + '?GroupId=' + id;
+    return this.http.get(url);
+  }
 
   //Create volumesGroup
   createVolumesGroup(param) {
@@ -159,6 +164,16 @@ export class VolumeGroupService {
     //modify volume group
     modifyVolumeGroup(groupId,param): Observable<any> {
       let url = this.volumeGroupUrl+"/" + groupId
+      return this.http.put(url,param);
+    }
+    //get volume group by id
+    getVolumeGroupById(groupId): Observable<any> {
+      let url = this.volumeGroupUrl+"/"+groupId;
+      return this.http.get(url);
+    }
+    //add or remove volumes 
+    addOrRemovevolumes(groupId,param): Observable<any> {
+      let url = this.volumeGroupUrl+"/"+groupId;
       return this.http.put(url,param);
     }
 }

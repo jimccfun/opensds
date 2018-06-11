@@ -252,7 +252,7 @@ export class VolumeListComponent implements OnInit {
         }
         let param = {
             "name":this.replicationGroup.value.repName ,
-            "size": this.selectedVolume.size,
+            "size": Number(this.selectedVolume.size.replace(" GB","")),
             "availabilityZone": this.replicationGroup.value.az.value,
             "profileId": this.replicationGroup.value.profileOption,
         }

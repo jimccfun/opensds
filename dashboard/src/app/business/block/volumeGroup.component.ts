@@ -8,6 +8,7 @@ import { FormControl, FormGroup, FormBuilder, Validators, ValidatorFn, AbstractC
 import { VolumeService ,VolumeGroupService} from './volume.service';
 import { ProfileService } from './../profile/profile.service';
 import { ConfirmationService,ConfirmDialogModule} from '../../components/common/api';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'volume-group-list',
@@ -34,7 +35,7 @@ export class VolumeGroupComponent implements OnInit{
     };
     constructor(
         public I18N: I18NService,
-        // private router: Router
+         private router: Router,
         private volumeGroupService : VolumeGroupService,
         private fb : FormBuilder,
         private profileService :ProfileService,
