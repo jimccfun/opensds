@@ -100,15 +100,19 @@ export class ReplicationListComponent implements OnInit {
                     switch(this.replication['replicationStatus']){
                         case "enabled":
                             this.operationStatus = this.swichMode[0];
+                            this.arrowEnable = true;
                             break;
                         case "disabled":
                             this.operationStatus = this.swichMode[1];
+                            this.arrowEnable = false;
                             break;
                         case "failed_over":
                             this.operationStatus = this.swichMode[2];
+                            this.arrowEnable = false;
                             break;
                         default:
                             this.operationStatus = this.swichMode[3];
+                            this.arrowEnable = false;
                     }
                     this.getVolumeById(element.primaryVolumeId);
                     this.showReplication = true;
