@@ -65,10 +65,6 @@ export class VolumeGroupComponent implements OnInit{
     }
 
     ngOnInit() {
-      this.volumeGroups = [
-          {"name": "group_for_REP", "status": "Available", "profile": "PF_block_01", "volumes": "2"},
-          {"name": "group_app01", "status": "Error", "profile": "PF_block_02", "volumes": "5"}
-      ];
       this.availabilityZones = [
         {
           label: 'Default', value: 'default'
