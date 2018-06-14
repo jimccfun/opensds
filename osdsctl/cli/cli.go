@@ -55,8 +55,9 @@ var (
 			os.Exit(1)
 		},
 	}
-	Debug bool
 )
+
+var Debug bool
 
 func init() {
 	rootCommand.AddCommand(versionCommand)
@@ -100,6 +101,7 @@ func (writer Writer) Write(data []byte) (n int, err error) {
 
 // Run method indicates how to start a cli tool through cobra.
 func Run() error {
+
 	if !utils.Contained("--debug", os.Args) {
 		log.SetOutput(Writer{})
 	}

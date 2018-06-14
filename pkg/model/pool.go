@@ -29,6 +29,9 @@ const (
 // atomic pool and can be abstracted from any storage platform.
 type StoragePoolSpec struct {
 	*BaseModel
+	// The uuid of project
+	// + readOnly
+	TenantId string `json:"tenantId"`
 
 	// The name of the pool.
 	Name string `json:"name,omitempty"`
@@ -66,7 +69,6 @@ type StoragePoolSpec struct {
 
 	//Replication type host based or array based
 	ReplicationType string `json:"replicationType,omitempty"`
-
 	//Replication driver name
 	ReplicationDriverName string `json:"replicationDriverName,omitempty"`
 }

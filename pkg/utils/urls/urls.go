@@ -16,8 +16,6 @@ package urls
 
 import (
 	"strings"
-
-	"github.com/opensds/opensds/pkg/utils/constants"
 )
 
 const (
@@ -82,5 +80,5 @@ func generateURL(resource string, urlType int, tenantId string, in ...string) st
 }
 
 func CurrentVersion() string {
-	return constants.APIVersion
+	return "v1beta"
 }

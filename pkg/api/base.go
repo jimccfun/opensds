@@ -29,6 +29,7 @@ type BasePortal struct {
 }
 
 func (this *BasePortal) GetParameters() (map[string][]string, error) {
+
 	u, err := url.Parse(this.Ctx.Request.URL.String())
 	if err != nil {
 		return nil, err

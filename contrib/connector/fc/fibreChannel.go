@@ -18,13 +18,10 @@ import (
 	"errors"
 	"fmt"
 	"log"
+
 	"strconv"
 	"strings"
 	"time"
-)
-
-var (
-	tries = 3
 )
 
 type fibreChannel struct {

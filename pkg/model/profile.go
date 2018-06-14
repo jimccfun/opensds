@@ -28,6 +28,9 @@ import (
 // capabilities which are desirable features for a class of applications.
 type ProfileSpec struct {
 	*BaseModel
+	// The uuid of project
+	// + readOnly
+	TenantId string `json:"TenantId"`
 
 	// The name of the profile.
 	Name string `json:"name,omitempty"`

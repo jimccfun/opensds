@@ -5,7 +5,6 @@
 // license that can be found in the LICENSE file.
 
 // Package table produces a string that represents slice of structs data in a text table
-
 package cli
 
 import (

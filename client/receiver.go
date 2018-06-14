@@ -30,6 +30,13 @@ import (
 	"github.com/opensds/opensds/pkg/utils/constants"
 )
 
+func checkHTTPResponseStatusCode(resp *http.Response) error {
+	if 400 <= resp.StatusCode && resp.StatusCode <= 599 {
+		return fmt.Errorf("response == %d, %s", resp.StatusCode, http.StatusText(resp.StatusCode))
+	}
+	return nil
+}
+
 func NewHttpError(code int, msg string) error {
 	return &HttpError{Code: code, Msg: msg}
 }
@@ -170,11 +177,4 @@ func (k *KeystoneReciver) Recv(url string, method string, body interface{}, outp
 		headers[constants.AuthTokenHeader] = k.auth.TokenID
 		return request(url, method, headers, body, output)
 	})
-}
-
-func checkHTTPResponseStatusCode(resp *http.Response) error {
-	if 400 <= resp.StatusCode && resp.StatusCode <= 599 {
-		return fmt.Errorf("response == %d, %s", resp.StatusCode, http.StatusText(resp.StatusCode))
-	}
-	return nil
 }

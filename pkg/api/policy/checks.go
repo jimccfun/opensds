@@ -12,6 +12,8 @@
 //    License for the specific language governing permissions and limitations
 //    under the License.
 
+//
+
 package policy
 
 import (
@@ -64,7 +66,8 @@ func NewFalseCheck() BaseCheck {
 	return &FalseCheck{}
 }
 
-type FalseCheck struct{}
+type FalseCheck struct {
+}
 
 func (this *FalseCheck) String() string {
 	return "!"

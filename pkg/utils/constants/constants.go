@@ -17,8 +17,7 @@ package constants
 const (
 	// It's RFC 8601 format that decodes and encodes with
 	// exactly precision to seconds.
-	TimeFormat = `2006-01-02T15:04:05`
-
+	TimeFormat             = `2006-01-02T15:04:05`
 	DefaultOpensdsEndpoint = "http://localhost:50040"
 
 	// This is set for None Auth
@@ -28,6 +27,5 @@ const (
 	AuthTokenHeader    = "X-Auth-Token"
 	SubjectTokenHeader = "X-Subject-Token"
 
-	// OpenSDS current api version
-	APIVersion = "v1beta"
+	ApiVersion = "v1beta"
 )
